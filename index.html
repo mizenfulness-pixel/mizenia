@@ -543,7 +543,7 @@
     </div>
     <div class="mood-card reveal reveal-delay-3">
       <div class="mood-time">Noche · 21:00–06:00</div>
-      <div class="mood-name">Grounding</div>
+      <div class="mood-name">Daylight · alberca · lectura</div>
       <svg class="mood-wave" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,20 C30,18 60,22 90,20 C120,18 150,21 180,20 C190,19 196,20 200,20" stroke="#b8975a" stroke-width="1.5" fill="none"/>
         <path d="M0,22 C40,20 80,24 120,22 C150,20 175,23 200,22" stroke="#b8975a" stroke-width="0.5" fill="none" opacity="0.4"/>
@@ -875,103 +875,47 @@
 </script>
 
 <script>
-var audioCtx = null;
+var player = null;
 var isPlaying = false;
-var oscillators = [];
-var gainNodes = [];
-var masterGain = null;
 var animFrame = null;
-var startTime = 0;
-var elapsed = 0;
-var demoLen = 30; // 30 seconds demo
 
-function buildGroundingAudio() {
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  masterGain = audioCtx.createGain();
-  masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-  masterGain.gain.linearRampToValueAtTime(0.28, audioCtx.currentTime + 3);
-  masterGain.connect(audioCtx.destination);
-
-  var freqs = [55, 82.5, 110, 146.8, 220]; // A1, E2, A2, D3, A3 — drone grounding chord
-  freqs.forEach(function(f, i) {
-    var osc = audioCtx.createOscillator();
-    var g = audioCtx.createGain();
-    var biquad = audioCtx.createBiquadFilter();
-    biquad.type = 'lowpass';
-    biquad.frequency.value = 400 + i * 80;
-    biquad.Q.value = 0.7;
-    osc.type = i < 2 ? 'sine' : 'triangle';
-    osc.frequency.value = f;
-    // Slow LFO-like variation
-    osc.frequency.setValueAtTime(f, audioCtx.currentTime);
-    osc.frequency.linearRampToValueAtTime(f * 1.002, audioCtx.currentTime + 8);
-    osc.frequency.linearRampToValueAtTime(f, audioCtx.currentTime + 16);
-    g.gain.value = [0.22, 0.18, 0.12, 0.09, 0.06][i];
-    osc.connect(biquad); biquad.connect(g); g.connect(masterGain);
-    osc.start();
-    oscillators.push(osc); gainNodes.push(g);
+function initPlayer() {
+  if (player) return;
+  player = new Audio('TRACK_AIRE.mp3');
+  player.addEventListener('ended', function() {
+    isPlaying = false;
+    document.querySelector('#playBtn svg').innerHTML = '<polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>';
+    document.getElementById('waveFill').style.clipPath = 'inset(0 100% 0 0)';
+    document.getElementById('playerTime').textContent = '0:00';
   });
-
-  // Soft noise pad
-  var bufLen = audioCtx.sampleRate * 2;
-  var buf = audioCtx.createBuffer(1, bufLen, audioCtx.sampleRate);
-  var d = buf.getChannelData(0);
-  for (var i = 0; i < bufLen; i++) d[i] = (Math.random() * 2 - 1) * 0.015;
-  var noise = audioCtx.createBufferSource();
-  var noiseFilter = audioCtx.createBiquadFilter();
-  noiseFilter.type = 'bandpass'; noiseFilter.frequency.value = 120; noiseFilter.Q.value = 0.5;
-  var noiseGain = audioCtx.createGain(); noiseGain.gain.value = 0.06;
-  noise.buffer = buf; noise.loop = true;
-  noise.connect(noiseFilter); noiseFilter.connect(noiseGain); noiseGain.connect(masterGain);
-  noise.start();
-  oscillators.push(noise);
-}
-
-function stopAudio() {
-  if (!audioCtx) return;
-  masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
-  masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
-  setTimeout(function() {
-    oscillators.forEach(function(o) { try { o.stop(); } catch(e) {} });
-    oscillators = []; gainNodes = [];
-    if (audioCtx) { audioCtx.close(); audioCtx = null; }
-  }, 1600);
 }
 
 function togglePlay() {
+  initPlayer();
   if (isPlaying) {
     isPlaying = false;
-    stopAudio();
+    player.pause();
     cancelAnimationFrame(animFrame);
-    document.querySelector('#playBtn svg polygon').setAttribute('points', '5,3 19,12 5,21');
+    document.querySelector('#playBtn svg').innerHTML = '<polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>';
     document.getElementById('waveFill').style.clipPath = 'inset(0 100% 0 0)';
     document.getElementById('playerTime').textContent = '0:00';
-    elapsed = 0;
+    player.currentTime = 0;
   } else {
     isPlaying = true;
-    buildGroundingAudio();
-    startTime = Date.now() - elapsed * 1000;
-    document.querySelector('#playBtn svg polygon').setAttribute('points', '5,3 8,3 8,21 5,21 M13,3 16,3 16,21 13,21');
-    // Use pause icon
+    player.currentTime = 0;
+    player.play();
     document.querySelector('#playBtn svg').innerHTML = '<rect x="5" y="3" width="4" height="18" fill="currentColor"/><rect x="13" y="3" width="4" height="18" fill="currentColor"/>';
     animatePlayer();
   }
 }
 
 function animatePlayer() {
-  elapsed = (Date.now() - startTime) / 1000;
-  if (elapsed >= demoLen) {
-    isPlaying = false; stopAudio();
-    document.querySelector('#playBtn svg').innerHTML = '<polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>';
-    document.getElementById('waveFill').style.clipPath = 'inset(0 100% 0 0)';
-    document.getElementById('playerTime').textContent = '0:00';
-    elapsed = 0; return;
-  }
-  var pct = elapsed / demoLen;
-  var remaining = Math.floor(100 - pct * 100);
-  var secs = Math.floor(elapsed);
+  if (!isPlaying || !player) return;
+  var dur = player.duration || 1;
+  var pct = player.currentTime / dur;
+  var secs = Math.floor(player.currentTime);
   document.getElementById('playerTime').textContent = '0:' + (secs < 10 ? '0' : '') + secs;
-  document.getElementById('waveFill').style.clipPath = 'inset(0 ' + Math.round((1 - pct) * 100) + '% 0 0)';
+  document.getElementById('waveFill').style.clipPath = 'inset(0 ' + Math.round((1 - pct) * 10) + '% 0 0)';
   animFrame = requestAnimationFrame(animatePlayer);
 }
 </script>
