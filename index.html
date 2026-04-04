@@ -297,7 +297,7 @@
   .quien-photo { position: relative; }
   .quien-photo img { width: 100%; display: block; filter: grayscale(100%) contrast(1.05); }
   .quien-photo::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(184,151,90,0.25); pointer-events: none; }
-  .quien-text blockquote { font-size: clamp(0.9rem, 1.3vw, 1.05rem); font-weight: 300; font-style: italic; color: var(--parchment); line-height: 1.85; border: none; padding: 0; margin: 0 0 2rem; }
+  .quien-text blockquote { font-size: clamp(1rem, 1.8vw, 1.15rem); font-weight: 300; font-style: italic; color: var(--parchment); line-height: 1.85; border: none; padding: 0; margin: 0 0 2rem; }
   .quien-text blockquote em { font-style: normal; color: var(--gold-light); }
   .quien-text .philosophy-attr { text-align: left; margin: 0; }
   @media (max-width: 768px) { .quien-inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; } .quien-text blockquote { font-size: 1rem; } .quien-text .philosophy-attr { text-align: center; } }
@@ -382,7 +382,7 @@
   @media (max-width: 900px) {
     nav { padding: 0.8rem 1.5rem; }
     .nav-links { display: none; }
-    .nav-logo svg, .logo-svg { height: 110px !important; width: auto !important; max-width: 320px !important; }
+    .nav-logo svg, .logo-svg { height: 64px !important; width: auto !important; max-width: 190px !important; }
     .hero-content { padding-top: 5rem !important; }
     section { padding: 5rem 1.5rem; }
     .hero { padding: 0 1.5rem 4rem; }
@@ -721,9 +721,23 @@
       <div class="section-label">El primer paso</div>
       <h2>Una propuesta <em>específica</em> para su propiedad.</h2>
       <p>No hay propuestas genéricas en MiZen. Cada proyecto comienza con una conversación. Cuéntenos sobre su hotel y le enviamos un diagnóstico sonoro y una propuesta a medida — sin costo.</p>
-      <a href="/cdn-cgi/l/email-protection#91f2feffe5f0f2e5fed1fcf8ebf4fff8f0bff2fefc" class="btn-primary"><span class="__cf_email__" data-cfemail="53303c3d273230273c133e3a29363d3a327d303c3e">[email&#160;protected]</span></a>
+      <a id="email-btn" href="#" class="btn-primary">contacto@mizenia.com</a>
+      <script>
+        (function(){
+          var u='contacto',d='mizenia.com';
+          var el=document.getElementById('email-btn');
+          el.href='mailto:'+u+'@'+d;
+        })();
+      </script>
       <div class="contact-detail">
-        <div class="contact-line">Correo — <a href="/cdn-cgi/l/email-protection#d4b7bbbaa0b5b7a0bb94b9bdaeb1babdb5fab7bbb9"><span class="__cf_email__" data-cfemail="492a26273d282a3d26092420332c272028672a2624">[email&#160;protected]</span></a></div>
+        <div class="contact-line">Correo — <a id="email-line" href="#">contacto@mizenia.com</a></div>
+        <script>
+          (function(){
+            var u='contacto',d='mizenia.com';
+            var el=document.getElementById('email-line');
+            el.href='mailto:'+u+'@'+d;
+          })();
+        </script>
         <div class="contact-line">Operando en — Costa Alegre, Jalisco, México</div>
         <div class="contact-line">Instagram — <a href="https://www.instagram.com/mizen.beats/" target="_blank">@mizen.beats</a> &nbsp;·&nbsp; LinkedIn — <a href="https://www.linkedin.com/in/jobnegrete/" target="_blank">Job Negrete</a></div>
       </div>
@@ -767,12 +781,19 @@
     <li><a href="https://www.instagram.com/mizen.beats/" target="_blank">Instagram</a></li>
     <li><a href="https://www.youtube.com/@MiZenArchitect" target="_blank">YouTube</a></li>
     <li><a href="https://www.linkedin.com/in/jobnegrete/" target="_blank">LinkedIn</a></li>
-    <li><a href="/cdn-cgi/l/email-protection#22414d4c564341564d624f4b58474c4b430c414d4f">Contacto</a></li>
+    <li><a id="email-footer" href="#">Contacto</a></li>
   </ul>
   <div class="footer-copy">© 2026 MiZen. Todos los derechos reservados.</div>
 </footer>
+<script>
+  (function(){
+    var u='contacto',d='mizenia.com';
+    var el=document.getElementById('email-footer');
+    el.href='mailto:'+u+'@'+d;
+  })();
+</script>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // RESPONSIVE LOGO
   (function() {
     function resizeLogo() {
