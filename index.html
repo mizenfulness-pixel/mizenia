@@ -504,7 +504,7 @@
     <div class="section-label">El sistema sonoro</div>
     <h2>Cuatro estados. Un arco diario completo.</h2>
     <div class="player-demo reveal reveal-delay-1">
-      <div class="player-label">Escucha un fragmento — <em>Daylight · alberca · lectura</em></div>
+      <div class="player-label">Escucha un fragmento — <em>Sunset · golden hour · terraza</em></div>
       <div class="player-controls">
         <button class="player-btn" id="playBtn" onclick="togglePlay()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon id="playIcon" points="5,3 19,12 5,21" fill="currentColor" stroke="none"/></svg>
@@ -910,7 +910,7 @@ var animFrame = null;
 
 function initPlayer() {
   if (player) return;
-  player = new Audio('TRACK_AIRE.mp3');
+  player = new Audio('Demo-Sunset.mp3');
   player.addEventListener('ended', function() {
     isPlaying = false;
     document.querySelector('#playBtn svg').innerHTML = '<polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>';
