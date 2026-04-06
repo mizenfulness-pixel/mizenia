@@ -512,7 +512,7 @@
         <div class="player-waveform">
           <svg viewBox="0 0 300 40" xmlns="http://www.w3.org/2000/svg" class="player-wave-svg">
             <path id="waveProgress" d="M0,20 C10,12 20,8 30,20 C40,32 50,28 60,20 C70,12 80,8 90,20 C100,32 110,28 120,20 C130,12 140,8 150,20 C160,32 170,28 180,20 C190,12 200,16 200,20 C210,24 220,28 230,20 C240,12 250,8 260,20 C270,32 280,28 290,20 C300,14 300,18 300,20" stroke="rgba(184,151,90,0.3)" stroke-width="1.5" fill="none"/>
-            <path id="waveActive" d="M0,20 C10,12 20,8 30,20 C40,32 50,28 60,20 C70,12 80,8 90,20" stroke="rgba(184,151,90,0.9)" stroke-width="1.5" fill="none" style="clip-path: inset(0 100% 0 0)" id="waveFill"/>
+            <path id="waveFill" d="M0,20 C10,12 20,8 30,20 C40,32 50,28 60,20 C70,12 80,8 90,20 C100,32 110,28 120,20 C130,12 140,8 150,20 C160,32 170,28 180,20 C190,12 200,16 200,20 C210,24 220,28 230,20 C240,12 250,8 260,20 C270,32 280,28 290,20 C300,14 300,18 300,20" stroke="rgba(184,151,90,0.9)" stroke-width="1.5" fill="none" style="clip-path: inset(0 100% 0 0)"/>
           </svg>
         </div>
         <div class="player-time" id="playerTime">0:00</div>
@@ -729,8 +729,8 @@
       <div class="section-label">El primer paso</div>
       <h2>Una propuesta <em>específica</em> para su propiedad.</h2>
       <p>No hay propuestas genéricas en MiZen. Cada proyecto comienza con una conversación. Cuéntenos sobre su hotel y le enviamos un diagnóstico sonoro y una propuesta a medida — sin costo.</p>
-      <a id="email-btn" href="#" class="btn-primary">contacto@mizenia.com</a>
-      <script>
+      <a id="email-btn" href="#" class="btn-primary"><span class="__cf_email__" data-cfemail="167579786277756279567b7f6c73787f773875797b">[email&#160;protected]</span></a>
+      <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         (function(){
           var u='contacto',d='mizenia.com';
           var el=document.getElementById('email-btn');
@@ -738,8 +738,8 @@
         })();
       </script>
       <div class="contact-detail">
-        <div class="contact-line">Correo — <a id="email-line" href="#">contacto@mizenia.com</a></div>
-        <script>
+        <div class="contact-line">Correo — <a id="email-line" href="#"><span class="__cf_email__" data-cfemail="87e4e8e9f3e6e4f3e8c7eaeefde2e9eee6a9e4e8ea">[email&#160;protected]</span></a></div>
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
           (function(){
             var u='contacto',d='mizenia.com';
             var el=document.getElementById('email-line');
@@ -926,17 +926,26 @@ function togglePlay() {
     player.pause();
     cancelAnimationFrame(animFrame);
     document.querySelector('#playBtn svg').innerHTML = '<polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>';
-    document.getElementById('waveFill').style.clipPath = 'inset(0 100% 0 0)';
-    document.getElementById('playerTime').textContent = '0:00';
-    player.currentTime = 0;
   } else {
     isPlaying = true;
-    player.currentTime = 0;
-    player.play();
-    document.querySelector('#playBtn svg').innerHTML = '<rect x="5" y="3" width="4" height="18" fill="currentColor"/><rect x="13" y="3" width="4" height="18" fill="currentColor"/>';
-    animatePlayer();
+    player.play().catch(function(e) { console.log('Audio play error:', e); });
+    document.querySelector('#playBtn svg').innerHTML = '<rect x="5" y="3" width="4" height="18" fill="currentColor" stroke="none"/><rect x="13" y="3" width="4" height="18" fill="currentColor" stroke="none"/>';
+    updateProgress();
   }
 }
 
-function animatePlayer() {
-  if (!i
+function updateProgress() {
+  if (!isPlaying || !player) return;
+  var pct = 0;
+  if (player.duration && isFinite(player.duration)) {
+    pct = (player.currentTime / player.duration) * 100;
+    var mins = Math.floor(player.currentTime / 60);
+    var secs = Math.floor(player.currentTime % 60);
+    document.getElementById('playerTime').textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+  }
+  document.getElementById('waveFill').style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+  animFrame = requestAnimationFrame(updateProgress);
+}
+</script>
+</body>
+</html>
