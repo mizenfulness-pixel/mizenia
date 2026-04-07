@@ -70,20 +70,21 @@
   }
   /* Logo: texto con tipografía de marca, sin imagen con fondo negro */
   .nav-logo {
-    display: flex; flex-direction: column; text-decoration: none; gap: 0.1rem;
+    display: flex; flex-direction: column; text-decoration: none; gap: 0.15rem;
   }
   .nav-logo-main {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em;
+    font-size: 2rem; font-weight: 300; letter-spacing: 0.15em;
     color: var(--parchment); line-height: 1;
     display: flex; align-items: baseline; gap: 0.05em;
+    text-shadow: 0 0 40px rgba(184,151,90,0.25);
   }
-  .nav-logo-main .mi { font-style: italic; opacity: 0.7; }
+  .nav-logo-main .mi { font-style: italic; opacity: 0.75; }
   .nav-logo-main .zen { font-style: normal; font-weight: 400; }
   .nav-logo-sub {
-    font-family: 'Tenor Sans', sans-serif; font-size: 0.52rem;
-    letter-spacing: 0.45em; text-transform: uppercase;
-    color: var(--gold); opacity: 0.8;
+    font-family: 'Tenor Sans', sans-serif; font-size: 0.58rem;
+    letter-spacing: 0.5em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.9;
   }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
@@ -390,7 +391,8 @@
   @media (max-width: 900px) {
     nav { padding: 0.8rem 1.5rem; }
     .nav-links { display: none; }
-    .nav-logo svg, .logo-svg { height: 64px !important; width: auto !important; max-width: 190px !important; }
+    .nav-logo-main { font-size: 2.4rem !important; letter-spacing: 0.18em !important; }
+    .nav-logo-sub { font-size: 0.62rem !important; letter-spacing: 0.5em !important; }
     .hero-content { padding-top: 5rem !important; }
     section { padding: 5rem 1.5rem; }
     .hero { padding: 0 1.5rem 4rem; }
@@ -729,9 +731,9 @@
       <div class="section-label">El primer paso</div>
       <h2>Una propuesta <em>específica</em> para su propiedad.</h2>
       <p>No hay propuestas genéricas en MiZen. Cada proyecto comienza con una conversación. Cuéntenos sobre su hotel y le enviamos un diagnóstico sonoro y una propuesta a medida — sin costo.</p>
-      <a id="email-btn" href="mailto:contacto@mizenia.com" class="btn-primary">contacto@mizenia.com</a>
+      <a id="email-btn" href="/cdn-cgi/l/email-protection#86e5e9e8f2e7e5f2e9c6ebeffce3e8efe7a8e5e9eb" class="btn-primary"><span class="__cf_email__" data-cfemail="0f6c60617b6e6c7b604f6266756a61666e216c6062">[email&#160;protected]</span></a>
       <div class="contact-detail">
-        <div class="contact-line">Correo — <a href="mailto:contacto@mizenia.com">contacto@mizenia.com</a></div>
+        <div class="contact-line">Correo — <a href="/cdn-cgi/l/email-protection#dbb8b4b5afbab8afb49bb6b2a1beb5b2baf5b8b4b6"><span class="__cf_email__" data-cfemail="a1c2cecfd5c0c2d5cee1ccc8dbc4cfc8c08fc2cecc">[email&#160;protected]</span></a></div>
         <div class="contact-line">Operando en — Costa Alegre, Jalisco, México</div>
         <div class="contact-line">Instagram — <a href="https://www.instagram.com/mizen.beats/" target="_blank">@mizen.beats</a> &nbsp;·&nbsp; LinkedIn — <a href="https://www.linkedin.com/in/jobnegrete/" target="_blank">Job Negrete</a></div>
       </div>
@@ -779,7 +781,7 @@
   </ul>
   <div class="footer-copy">© 2026 MiZen. Todos los derechos reservados.</div>
 </footer>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   (function(){
     var u='contacto',d='mizenia.com';
     var el=document.getElementById('email-footer');
@@ -925,13 +927,3 @@ function updateProgress() {
   var pct = 0;
   if (player.duration && isFinite(player.duration)) {
     pct = (player.currentTime / player.duration) * 100;
-    var mins = Math.floor(player.currentTime / 60);
-    var secs = Math.floor(player.currentTime % 60);
-    document.getElementById('playerTime').textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
-  }
-  document.getElementById('waveFill').style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
-  animFrame = requestAnimationFrame(updateProgress);
-}
-</script>
-</body>
-</html>
