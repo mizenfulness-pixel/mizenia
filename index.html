@@ -731,9 +731,9 @@
       <div class="section-label">El primer paso</div>
       <h2>Una propuesta <em>específica</em> para su propiedad.</h2>
       <p>No hay propuestas genéricas en MiZen. Cada proyecto comienza con una conversación. Cuéntenos sobre su hotel y le enviamos un diagnóstico sonoro y una propuesta a medida — sin costo.</p>
-      <a id="email-btn" href="/cdn-cgi/l/email-protection#86e5e9e8f2e7e5f2e9c6ebeffce3e8efe7a8e5e9eb" class="btn-primary"><span class="__cf_email__" data-cfemail="0f6c60617b6e6c7b604f6266756a61666e216c6062">[email&#160;protected]</span></a>
+      <a id="email-btn" href="#" class="btn-primary">contacto@mizenia.com</a>
       <div class="contact-detail">
-        <div class="contact-line">Correo — <a href="/cdn-cgi/l/email-protection#dbb8b4b5afbab8afb49bb6b2a1beb5b2baf5b8b4b6"><span class="__cf_email__" data-cfemail="a1c2cecfd5c0c2d5cee1ccc8dbc4cfc8c08fc2cecc">[email&#160;protected]</span></a></div>
+        <div class="contact-line">Correo — <a id="email-inline" href="#">contacto@mizenia.com</a></div>
         <div class="contact-line">Operando en — Costa Alegre, Jalisco, México</div>
         <div class="contact-line">Instagram — <a href="https://www.instagram.com/mizen.beats/" target="_blank">@mizen.beats</a> &nbsp;·&nbsp; LinkedIn — <a href="https://www.linkedin.com/in/jobnegrete/" target="_blank">Job Negrete</a></div>
       </div>
@@ -781,11 +781,18 @@
   </ul>
   <div class="footer-copy">© 2026 MiZen. Todos los derechos reservados.</div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   (function(){
     var u='contacto',d='mizenia.com';
-    var el=document.getElementById('email-footer');
-    el.href='mailto:'+u+'@'+d;
+    var mailto='mailto:'+u+'@'+d;
+    var display=u+'@'+d;
+    var ids=['email-footer','email-btn','email-inline'];
+    ids.forEach(function(id){
+      var el=document.getElementById(id);
+      if(!el) return;
+      el.href=mailto;
+      if(id!=='email-footer') el.textContent=display;
+    });
   })();
 </script>
 
@@ -795,9 +802,13 @@
     function resizeLogo() {
       var logo = document.getElementById('main-logo');
       if (!logo) return;
-      if (window.innerWidth <= 768) {
-        logo.style.height = '64px';
-        logo.style.maxWidth = '190px';
+      var w = window.innerWidth;
+      if (w <= 480) {
+        logo.style.height = '52px';
+        logo.style.maxWidth = '160px';
+      } else if (w <= 1024) {
+        logo.style.height = '80px';
+        logo.style.maxWidth = '240px';
       } else {
         logo.style.height = '200px';
         logo.style.maxWidth = '640px';
