@@ -731,9 +731,9 @@
       <div class="section-label">El primer paso</div>
       <h2>Una propuesta <em>específica</em> para su propiedad.</h2>
       <p>No hay propuestas genéricas en MiZen. Cada proyecto comienza con una conversación. Cuéntenos sobre su hotel y le enviamos un diagnóstico sonoro y una propuesta a medida — sin costo.</p>
-      <a id="email-btn" href="#" class="btn-primary">contacto@mizenia.com</a>
+      <a id="email-btn" href="#" class="btn-primary"><span class="__cf_email__" data-cfemail="93f0fcfde7f2f0e7fcd3fefae9f6fdfaf2bdf0fcfe">[email&#160;protected]</span></a>
       <div class="contact-detail">
-        <div class="contact-line">Correo — <a id="email-inline" href="#">contacto@mizenia.com</a></div>
+        <div class="contact-line">Correo — <a id="email-inline" href="#"><span class="__cf_email__" data-cfemail="8eede1e0faefedfae1cee3e7f4ebe0e7efa0ede1e3">[email&#160;protected]</span></a></div>
         <div class="contact-line">Operando en — Costa Alegre, Jalisco, México</div>
         <div class="contact-line">Instagram — <a href="https://www.instagram.com/mizen.beats/" target="_blank">@mizen.beats</a> &nbsp;·&nbsp; LinkedIn — <a href="https://www.linkedin.com/in/jobnegrete/" target="_blank">Job Negrete</a></div>
       </div>
@@ -781,7 +781,7 @@
   </ul>
   <div class="footer-copy">© 2026 MiZen. Todos los derechos reservados.</div>
 </footer>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   (function(){
     var u='contacto',d='mizenia.com';
     var mailto='mailto:'+u+'@'+d;
@@ -928,13 +928,24 @@ function togglePlay() {
   } else {
     isPlaying = true;
     player.play().catch(function(e) { console.log('Audio play error:', e); });
+    player.play().catch(function(e) { console.log('Audio play error:', e); });
     document.querySelector('#playBtn svg').innerHTML = '<rect x="5" y="3" width="4" height="18" fill="currentColor" stroke="none"/><rect x="13" y="3" width="4" height="18" fill="currentColor" stroke="none"/>';
     updateProgress();
   }
 }
-
 function updateProgress() {
   if (!isPlaying || !player) return;
   var pct = 0;
   if (player.duration && isFinite(player.duration)) {
     pct = (player.currentTime / player.duration) * 100;
+  }
+  document.getElementById('waveFill').style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+  var cur = player.currentTime;
+  var m = Math.floor(cur / 60);
+  var s = Math.floor(cur % 60);
+  document.getElementById('playerTime').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  animFrame = requestAnimationFrame(updateProgress);
+}
+</script>
+</body>
+</html>
