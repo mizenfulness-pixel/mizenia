@@ -806,9 +806,12 @@
       if (w <= 480) {
         logo.style.height = '52px';
         logo.style.maxWidth = '160px';
+      } else if (w <= 768) {
+        logo.style.height = '110px';
+        logo.style.maxWidth = '340px';
       } else if (w <= 1024) {
-        logo.style.height = '80px';
-        logo.style.maxWidth = '240px';
+        logo.style.height = '140px';
+        logo.style.maxWidth = '440px';
       } else {
         logo.style.height = '200px';
         logo.style.maxWidth = '640px';
