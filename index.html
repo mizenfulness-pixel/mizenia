@@ -160,6 +160,9 @@
     .hero-cta-group { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
     .btn-ghost { white-space: nowrap; }
   }
+  @media (max-width: 480px) {
+    .hero { padding-top: 8rem !important; }
+  }
   .scroll-indicator {
     position: absolute; bottom: 2.5rem; right: 3rem; z-index: 3;
     display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -414,8 +417,9 @@
     .footer-links { flex-wrap: wrap; justify-content: center; }
   }
   @media (max-width: 480px) {
+    nav { padding: 1rem 1.5rem; align-items: center; }
     .hero { padding: 0 1.5rem 7rem; }
-    .hero-content { padding-top: 3rem !important; }
+    .hero-content { padding-top: 7rem !important; }
   }
 
   .player-demo { margin-top: 2.5rem; padding: 1.8rem 2rem; border: 1px solid rgba(184,151,90,0.18); max-width: 600px; }
