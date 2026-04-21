@@ -413,6 +413,10 @@
     footer { flex-direction: column; gap: 1.5rem; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
   }
+  @media (max-width: 480px) {
+    .hero { padding: 0 1.5rem 7rem; }
+    .hero-content { padding-top: 3rem !important; }
+  }
 
   .player-demo { margin-top: 2.5rem; padding: 1.8rem 2rem; border: 1px solid rgba(184,151,90,0.18); max-width: 600px; }
   .player-label { font-family: 'Tenor Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-bottom: 1.2rem; }
@@ -809,8 +813,8 @@
       if (!logo) return;
       var w = window.innerWidth;
       if (w <= 480) {
-        logo.style.height = '90px';
-        logo.style.maxWidth = '280px';
+        logo.style.height = '120px';
+        logo.style.maxWidth = '360px';
       } else if (w <= 768) {
         logo.style.height = '160px';
         logo.style.maxWidth = '500px';
