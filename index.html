@@ -417,9 +417,9 @@
     .footer-links { flex-wrap: wrap; justify-content: center; }
   }
   @media (max-width: 480px) {
-    nav { padding: 1rem 1.5rem; align-items: center; }
+    nav { padding: 1.2rem 1.5rem; align-items: center; min-height: 90px; }
     .hero { padding: 0 1.5rem 7rem; }
-    .hero-content { padding-top: 7rem !important; }
+    .hero-content { padding-top: 5.5rem !important; }
   }
 
   .player-demo { margin-top: 2.5rem; padding: 1.8rem 2rem; border: 1px solid rgba(184,151,90,0.18); max-width: 600px; }
@@ -817,8 +817,8 @@
       if (!logo) return;
       var w = window.innerWidth;
       if (w <= 480) {
-        logo.style.height = '75px';
-        logo.style.maxWidth = '230px';
+        logo.style.height = '70px';
+        logo.style.maxWidth = '215px';
       } else if (w <= 768) {
         logo.style.height = '160px';
         logo.style.maxWidth = '500px';
